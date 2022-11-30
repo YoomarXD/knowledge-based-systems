@@ -1,16 +1,7 @@
 
 import jade.core.Agent;
 import jade.core.behaviours.SimpleBehaviour;
-import net.sf.clipsrules.jni.*;
-import jade.core.behaviours.OneShotBehaviour;
 import jade.core.*;
-import jade.core.behaviours.*;
-import jade.lang.acl.*;
-
-import java.io.BufferedWriter;
-import java.io.IOException;
-import java.io.OutputStreamWriter;
-import java.lang.ProcessBuilder.Redirect;
 import jade.lang.acl.ACLMessage;
 
 public class Paciente extends Agent {
