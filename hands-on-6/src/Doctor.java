@@ -12,6 +12,8 @@ public class Doctor extends Agent {
     protected String saludo;
     protected String mensaje_recibido;
     protected String despedida;
+    protected String disculpa;
+    protected String al_diagnosticar;
 
     @Override
     protected void setup() {
@@ -33,27 +35,37 @@ public class Doctor extends Agent {
                     clips.eval("(load \"" + clip_rules_file + "\")");
                     clips.reset();
 
-                    String paciente_nombre = mensaje.getSender().getLocalName().toString();
-
-                    System.out.println("\n" + getLocalName() + " -> " + paciente_nombre + mensaje_recibido);
+                    String paciente_nombre = String.format("%-16s", mensaje.getSender().getLocalName().toString());
+                    String doctor_nombre = String.format("%-16s", getLocalName());
+                    
                     clips.eval("(assert (paciente " + paciente_nombre + "))");
 
                     List<String> sintomas = Arrays.asList(mensaje.getContent().split("\\s+"));
+                    System.out.println("\n" + doctor_nombre + " -> " + paciente_nombre + mensaje_recibido + "(" + sintomas.size() + ")");
                     for (String sintoma : sintomas) {
                         clips.eval("(assert (sintoma " + sintoma + "))");
                     }
                     clips.run();
-
-                    System.out.println("\n" + getLocalName() + " -> " + paciente_nombre + despedida);
-
-                    /*
+                    
+                    Boolean any_diagnostic = false;
                     List<FactInstance> facts = clips.getFactList();
-                    facts.removeIf(fact -> (sintomas.contains("sintoma " + fact.getName())));
-
                     for (FactInstance fact : facts) {
-                        System.out.println("\n" + getLocalName() + " -> " + mensaje.getSender().getLocalName().toString() + fact.getSlotValues().toArray().toString());
+                        for (SlotValue slot : fact.getSlotValues()) {
+                            String s = slot.getSlotValue().toString();
+                            s = s.substring(1, s.length() - 1);
+
+                            if (s.startsWith("n-")) {
+                                System.out.println("\n" + doctor_nombre + " -> " + paciente_nombre + al_diagnosticar + s.substring(2));
+                                any_diagnostic = true;
+                            }
+                        }
                     }
-                    */
+
+                    if (any_diagnostic) {
+                        System.out.println("\n" + doctor_nombre + " -> " + paciente_nombre + despedida);
+                    } else {
+                        System.out.println("\n" + doctor_nombre + " -> " + paciente_nombre + disculpa);
+                    }
                 }
             } catch (CLIPSException e) {
                 // TODO Auto-generated catch block

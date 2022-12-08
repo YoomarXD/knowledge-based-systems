@@ -7,6 +7,8 @@ public class Dermatologo extends Doctor {
         saludo = ": Qué tal, ¿Gusta tomar aciento?";
         mensaje_recibido = ": Puedo ver que no se encuentra del todo bien ";
         despedida = ": Ese es todo mi diagnóstico.";
+        disculpa = ": No conozco ninguna enfermedad dermatológica que manifieste esos síntomas...";
+        al_diagnosticar = ": Sufres de ";
 
         super.setup();
     }

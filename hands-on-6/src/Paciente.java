@@ -18,21 +18,21 @@ public class Paciente extends Agent {
 
         String sintomas = "";
         Random rnd = new Random();
-        for (int i = 0; i < size / 2; i++) {
+        int amount = rnd.nextInt(size / 3, 2 * size / 3);
+        for (int i = 0; i < amount; i++) {
             int it = rnd.nextInt(todos_sintomas.size());
             String sintoma = todos_sintomas.get(it);
             todos_sintomas.remove(it);
             sintomas += sintoma + " ";
         }
 
-        System.out.println(getLocalName() + ": Me siento mal doctor, tengo " + sintomas);
-
         try {
-            Thread.sleep(1000);
+            Thread.sleep(rnd.nextInt(0, 15) * 1000);
+            System.out.println("\n" + getLocalName() + ": Me siento mal doctor, tengo " + sintomas);
             addBehaviour(new ConsultarDoctor("Neumologo", sintomas));
-            Thread.sleep(2000);
+            Thread.sleep(1000);
             addBehaviour(new ConsultarDoctor("Gastrointerologo", sintomas));
-            Thread.sleep(2000);
+            Thread.sleep(1000);
             addBehaviour(new ConsultarDoctor("Dermatologo", sintomas));
         } catch (InterruptedException e) {
             // TODO Auto-generated catch block

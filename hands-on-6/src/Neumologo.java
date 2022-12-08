@@ -7,6 +7,8 @@ public class Neumologo extends Doctor {
         saludo = ": Buen día ¿En qué puedo ayudarle?";
         mensaje_recibido = ": veo que usted presenta varios síntomas ";
         despedida = ": Eso es todo en lo que te puedo ayudar";
+        disculpa = ": Lamentablemente sus síntomas no son de mi área. Sugiero consulte otro especialista";
+        al_diagnosticar = ": Te diagnostico ";
 
         super.setup();
     }
